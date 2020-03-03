@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Pathfinder</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
+    <link rel='stylesheet' type='text/css' media='screen' href='build/assets/main.css'>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <input type="button" value="start" onclick="pathFind()" />
+            <input type="button" value="stop" onclick="stopPathfind()" />
+            <input type="button" value="clear" onclick="restart()" />
+            <input type="button" value="draw line" onclick="setDrawLine(true)" />
+            <input type="button" value="draw area" onclick="setDrawLine(false)" />
+        </div>
+        <div class="config-bar">
+            <div class="sizer">
+                <div class="size-wrapper">
+                    <p>size x: <input type='text' id="sizeX" onchange="handleChange.text('#sizeX')" /></p>
+                    <p>size y: <input type='text' id="sizeY" onchange="handleChange.text('#sizeY')" /></p>
+                </div>
+                <input class="size-bar" type="button" value="set size" onclick="setSize()" />
+            </div>
+            <div class="starter">
+                <div class="start-wrapper">
+                    <p class="start-bar">start x: <input type="text" id="startX"
+                            onchange="handleChange.text('#startX')" />
+                    </p>
+                    <p class="start-bar">start y: <input type="text" id="startY"
+                            onchange="handleChange.text('#startY')" />
+                    </p>
+                </div>
+                <input class="start-bar" type="button" value="set start" onclick="settingStart.start()" />
+            </div>
+            <div class="ender">
+                <div class="end-wrapper">
+                    <p class="end-bar">end x: <input type="text" id="endX" onchange="handleChange.text('#endX')" /></p>
+                    <p class="end-bar">end y: <input type="text" id="endY" onchange="handleChange.text('#endY')" /></p>
+                </div>
+                <input class="end-bar" type="button" value="set end" onclick="settingEnd.start()" />
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <input type="button" value="reset" onclick="resetAll()" />
+
+            <p>Precise <input type="range" min="0" max="10" value="0" class="slider" id="slider"
+                    onclick="handleChange.slider()"> Fast</p>
+        </div>
+        <div class="pathfinder-grid"></div>
+        <svg class="svg">
+            <rect width="0" height="0" x='0' y='0' fill="rgba(0,0,0,0.2)" stroke="rgba(0,0,0,0.6)" />
+        </svg>
+    </div>
+    <script src='build/ui.js'></script>
+    <script src='build/pathfinder.js'></script>
+</body>
+
+</html>

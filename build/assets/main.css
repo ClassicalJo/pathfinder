@@ -1,0 +1,85 @@
+@import url(./nav-bar.css);
+@import url(./config-bar.css);
+@import url(./bottom-bar.css);
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: calc(8px + (16 - 8) * (100vmin - 350px) / (800 - 350));
+    letter-spacing: -1.5px;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    
+}
+.container {
+    display: grid;
+    grid: repeat(2, auto) / 1fr;
+    height: 100vmin;
+    width: 75vmin;
+    align-content: flex-start;
+    grid-template-areas: 
+    "main"
+    "nav-bar";
+}
+
+
+.container > .pathfinder-grid {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.container > .svg {
+    height: 100%;
+    width: 100%;
+    grid-area: main;
+    background-color: transparent;
+    pointer-events: none;
+    
+}
+
+.container > .pathfinder-grid > .row {
+    display: flex;
+    align-self: flex-start;
+}
+.container > .pathfinder-grid > .row > input:disabled {
+    width: calc(12px + (24 - 12) * (100vmin - 350px) / (800 - 350));
+    height: calc(12px + (24 - 12) * (100vmin - 350px) / (800 - 350));
+    border: 0;
+    margin: 0.2rem;
+    cursor: default;
+    background-color: white;
+}
+
+
+.container > .pathfinder-grid > .row > .trying:disabled {
+    background-color: darkorange;
+}
+
+.container > .pathfinder-grid > .row > .failure:disabled {
+    background-color: maroon;
+}
+
+.container > .pathfinder-grid > .row > .block:disabled {
+    background-color: darkgrey;
+}
+.container > .pathfinder-grid > .row > .success:disabled {
+    background-color: greenyellow;
+}
+.container > .pathfinder-grid > .row > .start:disabled {
+    border: 3px solid yellowgreen;
+    box-sizing: border-box;
+}
+.container > .pathfinder-grid > .row > .end:disabled {
+    border: 3px solid red;
+    box-sizing: border-box;
+}
+
