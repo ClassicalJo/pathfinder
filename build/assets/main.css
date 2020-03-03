@@ -9,7 +9,7 @@ html, body {
     width: 100%;
     background-color: black;
     font-family: 'Courier New', Courier, monospace;
-    font-size: calc(8px + (16 - 8) * (100vmin - 350px) / (800 - 350));
+    font-size: calc(8px + (14 - 8) * (100vmin - 350px) / (800 - 350));
     letter-spacing: -1.5px;
 }
 
@@ -20,13 +20,15 @@ body {
 }
 .container {
     display: grid;
-    grid: repeat(2, auto) / 1fr;
+    grid: repeat(4, auto) / 1fr;
     height: 100vmin;
     width: 75vmin;
     align-content: flex-start;
     grid-template-areas: 
     "main"
-    "nav-bar";
+    "nav-bar"
+    "config-bar"
+    "bottom-bar";
 }
 
 
