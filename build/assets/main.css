@@ -11,13 +11,14 @@ html, body {
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(8px + (14 - 8) * (100vmin - 350px) / (800 - 350));
     letter-spacing: -1.5px;
+    touch-action: none; 
 }
 
 body {
     display: flex;
     height: 100vh;
-    
 }
+
 .container {
     display: grid;
     grid: repeat(4, auto) / 1fr;
@@ -36,7 +37,6 @@ body {
     grid-area: main;
     display: flex;
     flex-direction: column;
-    
 }
 
 .container > .svg {
@@ -51,6 +51,7 @@ body {
 .container > .pathfinder-grid > .row {
     display: flex;
     align-self: flex-start;
+    touch-action: none;
 }
 .container > .pathfinder-grid > .row > input:disabled {
     width: calc(12px + (24 - 12) * (100vmin - 350px) / (800 - 350));
@@ -59,6 +60,7 @@ body {
     margin: 0.2rem;
     cursor: default;
     background-color: white;
+    touch-action: none;
 }
 
 

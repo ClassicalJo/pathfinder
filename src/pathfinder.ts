@@ -119,7 +119,7 @@ function createVirtualBoard() {
     state.board = {}
     let $squares: any = document.querySelectorAll('.square')
     for (let i = 0; i < $squares.length; i++) {
-        let coord = { x: Number($squares[i].attributes.column.value), y: Number($squares[i].attributes.row.value) }
+        let coord = { x: Number($squares[i].dataset.column), y: Number($squares[i].dataset.row) }
         state.board[`${coord.x}-${coord.y}`] = {
             id: $squares[i].id,
             blocked: $squares[i].classList.contains("block"),

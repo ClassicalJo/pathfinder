@@ -40,8 +40,8 @@ let createBoard = () => {
         for (let x = 0; x < UI.size.x; x++) {
             let $input = document.createElement("input");
             $input.classList.add("square");
-            $input.setAttribute("row", `${y}`);
-            $input.setAttribute("column", `${x}`);
+            $input.setAttribute("data-row", `${y}`);
+            $input.setAttribute("data-column", `${x}`);
             $input.setAttribute("id", iterator.next().value);
             $input.type = "text";
             $input.setAttribute("draggable", "false");
@@ -49,82 +49,6 @@ let createBoard = () => {
             $row.appendChild($input);
         }
     }
-};
-let handleHover = (e) => {
-    if (UI.dragging) {
-        if (UI.drawLine)
-            toggleBlock(e);
-        else {
-            let area = { ...UI.area };
-            area.width = Math.abs(UI.area.x - e.clientX);
-            area.height = Math.abs(UI.area.y - e.clientY);
-            area.rotateX = e.clientX < UI.area.x ? -1 : 1;
-            area.rotateY = e.clientY < UI.area.y ? -1 : 1;
-            UI.area = area;
-        }
-    }
-};
-let toggleBlock = (e) => {
-    if (UI.dragClean)
-        e.target.classList.contains("block") ? e.target.classList.remove("block") : null;
-    else
-        e.target.classList.add("block");
-};
-let eventHandler = {
-    mouseup: () => mouseUp(),
-    mouseleave: () => mouseUp(),
-    mousedown: (e) => mouseDown(e),
-    mousemove: (e) => handleHover(e),
-};
-let setDrawLine = (value) => {
-    UI.drawLine = value;
-};
-let mouseDown = (e) => {
-    if (UI.settingStart) {
-        UI.settingStart = false;
-        settingStart.set(e);
-        crosshairs.remove();
-    }
-    else if (UI.settingEnd) {
-        UI.settingEnd = false;
-        settingEnd.set(e);
-        crosshairs.remove();
-    }
-    else if (UI.drawLine) {
-        UI.dragging = true;
-        UI.dragClean = e.target.classList.contains("block");
-    }
-    else {
-        UI.dragging = true;
-        let area = { ...UI.area };
-        area.height = 0;
-        area.width = 0;
-        area.x = e.clientX;
-        area.y = e.clientY;
-        UI.area = area;
-        cycle();
-    }
-};
-let mouseUp = () => {
-    if (!UI.drawLine && UI.dragging) {
-        cancelAnimationFrame(UI.loop);
-        let $squares = document.querySelectorAll(".square");
-        let minorX = UI.area.rotateX > 0 ? UI.area.x : UI.area.x - UI.area.width;
-        let minorY = UI.area.rotateY > 0 ? UI.area.y : UI.area.y - UI.area.height;
-        for (let i = 0; i < $squares.length; i++) {
-            if (minorX < $squares[i].offsetLeft + $squares[i].offsetWidth &&
-                minorY < $squares[i].offsetTop + $squares[i].offsetHeight &&
-                minorX + UI.area.width > $squares[i].offsetLeft &&
-                minorY + UI.area.height > $squares[i].offsetTop)
-                $squares[i].classList.contains("block") ? $squares[i].classList.remove("block") : $squares[i].classList.add("block");
-        }
-        let $rect = document.querySelector("rect");
-        $rect.setAttribute("width", `0`);
-        $rect.setAttribute("height", `0`);
-        UI.dragClean = false;
-        lockBoard();
-    }
-    UI.dragging = false;
 };
 var cycle = () => {
     updateCycle();
@@ -172,14 +96,7 @@ let resetAll = () => {
     removeBlocks();
     restart();
 };
-/////////////////////////////////////////////////////////////
-//Cambiar el onchange de esto; JESUS NO TERMINO MAS JAJAJA?//
-/////////////////////////////////////////////////////////////
-//BORRAR ESTO ///////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-//LO MISMO CON SETTINGEND Y SETTINGSIZE NO TE OLVIDES EH/////
-/////////////////////////////////////////////////////////////
-let settingStart = {
+let setStartPoint = {
     start: () => {
         let $startX = document.querySelector("#startX");
         let $startY = document.querySelector("#startY");
@@ -197,16 +114,14 @@ let settingStart = {
             lockBoard();
         }
     },
-    set: (e) => {
-        if (e.target.attributes.column !== undefined) {
-            let start = { ...state.startPoint };
-            start.x = Number(e.target.attributes.column.value);
-            start.y = Number(e.target.attributes.row.value);
-            state.startPoint = start;
-            document.querySelector(".start").classList.remove("start");
-            document.querySelector(`#${state.board[`${start.x}-${start.y}`].id}`).classList.add("start");
-            lockBoard();
-        }
+    set: (x, y) => {
+        let start = { ...state.startPoint };
+        start.x = x;
+        start.y = y;
+        state.startPoint = start;
+        document.querySelector(".start").classList.remove("start");
+        document.querySelector(`#${state.board[`${start.x}-${start.y}`].id}`).classList.add("start");
+        lockBoard();
     }
 };
 let crosshairs = {
@@ -219,7 +134,7 @@ let crosshairs = {
         $squares.forEach(key => key.removeAttribute("style"));
     }
 };
-let settingEnd = {
+let setEndPoint = {
     start: () => {
         let $endX = document.querySelector("#endX");
         let $endY = document.querySelector("#endY");
@@ -237,16 +152,14 @@ let settingEnd = {
             lockBoard();
         }
     },
-    set: (e) => {
-        if (e.target.attributes.column !== undefined) {
-            let end = { ...state.endPoint };
-            end.x = Number(e.target.attributes.column.value);
-            end.y = Number(e.target.attributes.row.value);
-            state.endPoint = end;
-            document.querySelector(".end").classList.remove("end");
-            document.querySelector(`#${state.board[`${end.x}-${end.y}`].id}`).classList.add("end");
-            lockBoard();
-        }
+    set: (x, y) => {
+        let end = { ...state.endPoint };
+        end.x = x;
+        end.y = y;
+        state.endPoint = end;
+        document.querySelector(".end").classList.remove("end");
+        document.querySelector(`#${state.board[`${end.x}-${end.y}`].id}`).classList.add("end");
+        lockBoard();
     }
 };
 let setSize = () => {
@@ -283,6 +196,12 @@ let checkAgainstMaxValue = {
     endX: (value) => { return value > UI.size.x - 1 ? UI.size.x - 1 : value; },
     endY: (value) => { return value > UI.size.y - 1 ? UI.size.y - 1 : value; },
 };
+let toggleBlock = (e) => {
+    if (UI.dragClean)
+        e.classList.contains("block") ? e.classList.remove("block") : null;
+    else
+        e.classList.add("block");
+};
 let handleChange = {
     slider: () => {
         let newValue = document.querySelector(".slider").value;
@@ -303,10 +222,49 @@ let stopPathfind = () => {
 };
 let setContainerListeners = () => {
     let $container = document.querySelector(".pathfinder-grid");
-    $container.addEventListener("mousemove", eventHandler["mousemove"]);
-    $container.addEventListener("mousedown", eventHandler["mousedown"]);
-    $container.addEventListener("mouseup", eventHandler["mouseup"]);
-    $container.addEventListener("mouseleave", eventHandler["mouseleave"]);
+    $container.addEventListener("mousemove", handleHover);
+    $container.addEventListener("mousedown", mouseDown);
+    $container.addEventListener("mouseup", mouseUp);
+    $container.addEventListener("mouseleave", mouseUp);
+    $container.addEventListener("touchmove", touchMove);
+    $container.addEventListener("touchstart", touchStart);
+    $container.addEventListener("touchend", mouseUp);
+};
+let setDrawLine = (value) => {
+    UI.drawLine = value;
+};
+let addBlocks = (target, x, y) => {
+    UI.dragging = true;
+    if (UI.settingStart) {
+        UI.settingStart = false;
+        setStartPoint.set(Number(target.dataset.column), Number(target.dataset.row));
+        crosshairs.remove();
+    }
+    else if (UI.settingEnd) {
+        UI.settingEnd = false;
+        setEndPoint.set(Number(target.dataset.column), Number(target.dataset.row));
+        crosshairs.remove();
+    }
+    else if (UI.drawLine) {
+        UI.dragClean = target.classList.contains("block");
+    }
+    else {
+        let area = { ...UI.area };
+        area.height = 0;
+        area.width = 0;
+        area.x = x;
+        area.y = y;
+        UI.area = area;
+        cycle();
+    }
+};
+let dragArea = (x, y) => {
+    let area = { ...UI.area };
+    area.width = Math.abs(UI.area.x - x);
+    area.height = Math.abs(UI.area.y - y);
+    area.rotateX = x < UI.area.x ? -1 : 1;
+    area.rotateY = y < UI.area.y ? -1 : 1;
+    UI.area = area;
 };
 setContainerListeners();
 createBoard();

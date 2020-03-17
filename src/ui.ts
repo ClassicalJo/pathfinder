@@ -71,8 +71,8 @@ let createBoard = () => {
         for (let x: number = 0; x < UI.size.x; x++) {
             let $input: HTMLInputElement = document.createElement("input")
             $input.classList.add("square")
-            $input.setAttribute("row", `${y}`)
-            $input.setAttribute("column", `${x}`)
+            $input.setAttribute("data-row", `${y}`)
+            $input.setAttribute("data-column", `${x}`)
             $input.setAttribute("id", iterator.next().value)
             $input.type = "text"
             $input.setAttribute("draggable", "false")
@@ -80,86 +80,6 @@ let createBoard = () => {
             $row.appendChild($input)
         }
     }
-}
-
-let handleHover = (e: MouseEvent) => {
-    if (UI.dragging) {
-        if (UI.drawLine) toggleBlock(e)
-        else {
-            let area: Area = { ...UI.area }
-            area.width = Math.abs(UI.area.x - e.clientX)
-            area.height = Math.abs(UI.area.y - e.clientY)
-            area.rotateX = e.clientX < UI.area.x ? -1 : 1
-            area.rotateY = e.clientY < UI.area.y ? -1 : 1
-            UI.area = area
-        }
-    }
-}
-
-
-let toggleBlock = (e: MouseEvent) => {
-    if (UI.dragClean) (e!.target as HTMLInputElement).classList.contains("block") ? (e!.target as HTMLInputElement).classList.remove("block") : null
-    else (e!.target as HTMLInputElement).classList.add("block")
-}
-
-let eventHandler = {
-    mouseup: () => mouseUp(),
-    mouseleave: () => mouseUp(),
-    mousedown: (e: MouseEvent) => mouseDown(e),
-    mousemove: (e: MouseEvent) => handleHover(e),
-}
-
-let setDrawLine = (value: boolean) => {
-    UI.drawLine = value
-}
-
-let mouseDown = (e: MouseEvent) => {
-    if (UI.settingStart) {
-        UI.settingStart = false
-        settingStart.set(e)
-        crosshairs.remove()
-    }
-    else if (UI.settingEnd) {
-        UI.settingEnd = false
-        settingEnd.set(e)
-        crosshairs.remove()
-    }
-    else if (UI.drawLine) {
-        UI.dragging = true;
-        UI.dragClean = (e!.target as HTMLInputElement).classList.contains("block")
-    }
-    else {
-        UI.dragging = true;
-        let area: Area = { ...UI.area }
-        area.height = 0
-        area.width = 0
-        area.x = e.clientX
-        area.y = e.clientY
-        UI.area = area
-        cycle()
-    }
-}
-
-let mouseUp = () => {
-    if (!UI.drawLine && UI.dragging) {
-        cancelAnimationFrame(UI.loop)
-        let $squares = document.querySelectorAll(".square") as NodeListOf<HTMLInputElement>
-        let minorX: number = UI.area.rotateX > 0 ? UI.area.x : UI.area.x - UI.area.width
-        let minorY: number = UI.area.rotateY > 0 ? UI.area.y : UI.area.y - UI.area.height
-        for (let i = 0; i < $squares.length; i++) {
-            if (minorX < $squares[i].offsetLeft + $squares[i].offsetWidth &&
-                minorY < $squares[i].offsetTop + $squares[i].offsetHeight &&
-                minorX + UI.area.width > $squares[i].offsetLeft &&
-                minorY + UI.area.height > $squares[i].offsetTop) $squares[i].classList.contains("block") ? $squares[i].classList.remove("block") : $squares[i].classList.add("block")
-        }
-        let $rect = document.querySelector("rect") as SVGRectElement
-        $rect.setAttribute("width", `0`)
-        $rect.setAttribute("height", `0`)
-        UI.dragClean = false
-        lockBoard()
-    }
-    UI.dragging = false
-
 }
 
 
@@ -212,15 +132,8 @@ let resetAll = () => {
     removeBlocks()
     restart()
 }
-/////////////////////////////////////////////////////////////
-//Cambiar el onchange de esto; JESUS NO TERMINO MAS JAJAJA?//
-/////////////////////////////////////////////////////////////
-//BORRAR ESTO ///////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-//LO MISMO CON SETTINGEND Y SETTINGSIZE NO TE OLVIDES EH/////
-/////////////////////////////////////////////////////////////
 
-let settingStart = {
+let setStartPoint = {
     start: () => {
         let $startX = document.querySelector("#startX") as HTMLInputElement;
         let $startY = document.querySelector("#startY") as HTMLInputElement;
@@ -238,16 +151,14 @@ let settingStart = {
             lockBoard()
         }
     },
-    set: (e: any) => {
-        if (e.target.attributes.column !== undefined) {
-            let start: Coords = { ...state.startPoint }
-            start.x = Number(e.target.attributes.column.value);
-            start.y = Number(e.target.attributes.row.value);
-            state.startPoint = start;
-            (document.querySelector(".start") as HTMLInputElement).classList.remove("start");
-            (document.querySelector(`#${state.board![`${start.x}-${start.y}`].id}`) as HTMLInputElement).classList.add("start");
-            lockBoard()
-        }
+    set: (x: number, y: number) => {
+        let start: Coords = { ...state.startPoint }
+        start.x = x
+        start.y = y
+        state.startPoint = start;
+        (document.querySelector(".start") as HTMLInputElement).classList.remove("start");
+        (document.querySelector(`#${state.board![`${start.x}-${start.y}`].id}`) as HTMLInputElement).classList.add("start");
+        lockBoard()
     }
 }
 
@@ -262,7 +173,7 @@ let crosshairs = {
     }
 
 }
-let settingEnd = {
+let setEndPoint = {
     start: () => {
         let $endX = document.querySelector("#endX") as HTMLInputElement;
         let $endY = document.querySelector("#endY") as HTMLInputElement;
@@ -280,17 +191,15 @@ let settingEnd = {
             lockBoard()
         }
     },
-    set: (e: any) => {
-        if (e.target.attributes.column !== undefined) {
-            let end: Coords = { ...state.endPoint }
-            end.x = Number(e.target.attributes.column.value);
-            end.y = Number(e.target.attributes.row.value);
-            state.endPoint = end;
-            (document.querySelector(".end") as HTMLInputElement).classList.remove("end");
-            (document.querySelector(`#${state.board![`${end.x}-${end.y}`].id}`) as HTMLInputElement).classList.add("end");
+    set: (x: number, y: number) => {
+        let end: Coords = { ...state.endPoint }
+        end.x = x
+        end.y = y
+        state.endPoint = end;
+        (document.querySelector(".end") as HTMLInputElement).classList.remove("end");
+        (document.querySelector(`#${state.board![`${end.x}-${end.y}`].id}`) as HTMLInputElement).classList.add("end");
+        lockBoard()
 
-            lockBoard()
-        }
     }
 }
 
@@ -317,8 +226,6 @@ let setSize = () => {
 
     state.startPoint = startPoint
     state.endPoint = endPoint
-
-
     createBoard()
     lockBoard()
 }
@@ -328,7 +235,6 @@ let onlyNumbers = (element: string) => {
     return response === null ? "0" : response[0]
 }
 
-
 let checkAgainstMaxValue: any = {
     sizeX: (value: number) => { return value > 22 ? 22 : value },
     sizeY: (value: number) => { return value > 22 ? 22 : value },
@@ -336,6 +242,11 @@ let checkAgainstMaxValue: any = {
     startY: (value: number) => { return value > UI.size.y - 1 ? UI.size.y - 1 : value },
     endX: (value: number) => { return value > UI.size.x - 1 ? UI.size.x - 1 : value },
     endY: (value: number) => { return value > UI.size.y - 1 ? UI.size.y - 1 : value },
+}
+
+let toggleBlock = (e: HTMLInputElement) => {
+    if (UI.dragClean) e.classList.contains("block") ? e.classList.remove("block") : null
+    else e.classList.add("block")
 }
 
 let handleChange: any = {
@@ -359,10 +270,54 @@ let stopPathfind = () => {
 
 let setContainerListeners = () => {
     let $container: HTMLDivElement = document.querySelector(".pathfinder-grid") as HTMLDivElement
-    $container.addEventListener("mousemove", eventHandler["mousemove"])
-    $container.addEventListener("mousedown", eventHandler["mousedown"])
-    $container.addEventListener("mouseup", eventHandler["mouseup"])
-    $container.addEventListener("mouseleave", eventHandler["mouseleave"])
+    $container.addEventListener("mousemove", handleHover)
+    $container.addEventListener("mousedown", mouseDown)
+    $container.addEventListener("mouseup", mouseUp)
+    $container.addEventListener("mouseleave", mouseUp)
+    $container.addEventListener("touchmove", touchMove)
+    $container.addEventListener("touchstart", touchStart)
+    $container.addEventListener("touchend", mouseUp)
+
+}
+
+let setDrawLine = (value: boolean) => {
+    UI.drawLine = value
+}
+
+let addBlocks = (target: HTMLElement, x: number, y: number) => {
+    UI.dragging = true
+    if (UI.settingStart) {
+        UI.settingStart = false
+        setStartPoint.set(Number(target.dataset.column), Number(target.dataset.row))
+        crosshairs.remove()
+    }
+    else if (UI.settingEnd) {
+        UI.settingEnd = false
+        setEndPoint.set(Number(target.dataset.column), Number(target.dataset.row))
+        crosshairs.remove()
+    }
+    else if (UI.drawLine) {
+        UI.dragClean = target.classList.contains("block")
+    }
+    else {
+        let area: Area = { ...UI.area }
+        area.height = 0
+        area.width = 0
+        area.x = x
+        area.y = y
+        UI.area = area
+        cycle()
+    }
+
+}
+
+let dragArea = (x: number, y: number) => {
+    let area: Area = { ...UI.area }
+    area.width = Math.abs(UI.area.x - x)
+    area.height = Math.abs(UI.area.y - y)
+    area.rotateX = x < UI.area.x ? -1 : 1
+    area.rotateY = y < UI.area.y ? -1 : 1
+    UI.area = area
 }
 
 setContainerListeners()
