@@ -219,8 +219,6 @@ let handleChange = {
 };
 let stopPathfind = () => {
     state.timeouts.forEach(key => clearTimeout(key));
-    sorter.terminate();
-    sorter = generateSorter();
 };
 let setContainerListeners = () => {
     let $container = document.querySelector(".pathfinder-grid");
@@ -270,4 +268,3 @@ let dragArea = (x, y) => {
 };
 setContainerListeners();
 createBoard();
-//# sourceMappingURL=ui.js.map

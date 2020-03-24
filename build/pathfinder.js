@@ -1,25 +1,24 @@
 "use strict";
 var state = {
     startPoint: {
-        x: 6,
-        y: 6
+        x: 5,
+        y: 5
     },
     endPoint: {
-        x: 15,
-        y: 15,
+        x: 16,
+        y: 16
     },
     lines: [],
     timeouts: [],
     timeoutValue: 100
 };
 let originalState = { ...state };
-let sorter = generateSorter();
 function checkDistance(cd) {
     //Establishes the distance between the endpoint and each square in all eight directions.
-    //If that square is out of area or is a block, it's returns -1.
-    if (cd.x > -1 && cd.x < UI.size.x && cd.y > -1 && cd.y < UI.size.y && state.board[`${cd.x}-${cd.y}`].blocked !== true)
+    //If that square is out of area or is a block, it's marked as blocked.
+    if (cd.x > 0 && cd.x < UI.size.x && cd.y > 0 && cd.y < UI.size.y && state.board[`${cd.x}-${cd.y}`].blocked !== true)
         return Math.abs(state.endPoint.x - cd.x) + Math.abs(state.endPoint.y - cd.y);
-    return -1;
+    return "blocked";
 }
 function isBlocked(cd) { return boardCd(cd).blocked; }
 function boardCd(cd) { return state.board[(`${cd.x}-${cd.y}`)]; }
@@ -103,47 +102,65 @@ function findDistances() {
     }
 }
 function directions(obj) {
-    //Receives all directions from the Distances property of a given coordinate in board and returns viable directions in proximity order.
+    //Receives all directions from the Distances property of a given coordinate in board.
     let directionsArray = [];
     for (let distance in obj) {
-        if (obj[distance] !== -1)
+        if (obj[distance] !== "blocked")
             directionsArray.push([distance, obj[distance]]);
     }
     let response = directionsArray.sort((a, b) => { return a[1] - b[1]; }).flat().filter((key) => typeof key === "string");
+    //Returns viable directions in proximity order
     return response;
 }
 function breadthFirst() {
-    restart();
+    //I'm not really sure if it's a breadth first function.
     let coord = { ...state.startPoint };
     let ways = directions(boardCd(coord).distances);
-    let destinations = [];
     for (let i = ways.length - 1; i >= 0; i--) {
-        let stepData = {
-            suggestedDirection: ways[i],
-            currentLine: [ways[i]],
-            currentCoordinates: coord,
-            pathRecord: [coord],
-            board: state.board,
-            instruction: "step",
-        };
-        destinations.push(stepData);
+        let line = [];
+        let record = [coord];
+        let timeout = setTimeout(() => step(travel(coord, ways[i]), ways[i], line, record), 5);
+        state.timeouts.push(timeout);
     }
-    sorter.postMessage(destinations);
 }
-function instructions(event) {
-    switch (event.instruction) {
-        case "step": {
-            let timeout = setTimeout(() => transposeIntoDom(event.pathRecord));
-            state.timeouts.push(timeout);
-            break;
+function wasTravelled(array, obj, path) {
+    //Receives an array of possible directions, a coordinate, and an array of travelled coordinates.
+    //Returns an array of possible directions that don't point towards a travelled coordinate.
+    let filteredArray = [];
+    for (let i = 0; i < array.length; i++) {
+        let proposal = travel(obj, array[i]);
+        if (path.filter((key) => (key.x === proposal.x && key.y === proposal.y)).length <= 0) {
+            filteredArray.push(array[i]);
         }
-        case "stop": {
-            state.timeouts.forEach((key) => clearTimeout(key));
-            sorter.terminate();
-            sorter = generateSorter();
-            transposeSuccess(event.pathRecord);
-            break;
-        }
+    }
+    return filteredArray;
+}
+function step(newCoordinates, suggestedDirection, currentLine, pathRecord) {
+    let filteredWays = wasTravelled(directions(boardCd(newCoordinates).distances), newCoordinates, pathRecord);
+    for (let i = 0; i < filteredWays.length; i++) {
+        let timeout = setTimeout(() => {
+            let thisStep = {
+                cd: { ...newCoordinates },
+                direction: suggestedDirection,
+                line: [...currentLine],
+                path: [...pathRecord]
+            };
+            thisStep.path.push(thisStep.cd);
+            thisStep.line.push(thisStep.direction);
+            let isFinal = travel(thisStep.cd, filteredWays[i]);
+            if (isFinal.x !== state.endPoint.x || isFinal.y !== state.endPoint.y) {
+                transposeIntoDom(thisStep.path);
+                step(travel(thisStep.cd, filteredWays[i]), filteredWays[i], thisStep.line, thisStep.path);
+            }
+            else {
+                currentLine.push(suggestedDirection, filteredWays[i]);
+                state.lines.push(currentLine);
+                pathRecord.push(newCoordinates, isFinal);
+                state.timeouts.forEach(key => clearTimeout(key));
+                transposeSuccess(pathRecord);
+            }
+        }, state.timeoutValue * i);
+        state.timeouts.push(timeout);
     }
 }
 function transposeIntoDom(path) {
@@ -167,44 +184,9 @@ function transposeSuccess(path) {
         document.querySelector(`#${$id}`).classList.remove("failure");
         document.querySelector(`#${$id}`).classList.add("success");
     });
-    let endpointId = document.querySelector(`#${boardCd(state.endPoint).id}`).classList.remove("failure");
-    document.querySelector(`#${boardCd(state.endPoint).id}`).classList.add("success");
 }
-function generateSorter() {
-    let newSorter = new Worker("../../build/src/dedicated-worker/sorter.js");
-    newSorter.onmessage = (event) => {
-        event.data.forEach((key) => {
-            instructions(key);
-        });
-    };
-    return newSorter;
-}
-let startingBoard = () => {
-    let $squares = document.querySelectorAll('.square');
-    $squares.forEach(key => key.classList.add("block"));
-    let blockedSquares = [{ x: 6, y: 6 }, { x: 6, y: 7 }, { x: 6, y: 8 }, { x: 6, y: 9 }, { x: 6, y: 10 }, { x: 6, y: 11 }, { x: 6, y: 12 }, { x: 6, y: 13 }, { x: 6, y: 14 }, { x: 6, y: 15 }, { x: 7, y: 9 }, { x: 7, y: 13 }, { x: 7, y: 15 }, { x: 8, y: 6 }, { x: 8, y: 7 }, { x: 8, y: 9 }, { x: 8, y: 11 }, { x: 8, y: 13 }, { x: 8, y: 15 }, { x: 9, y: 7 }, { x: 9, y: 8 }, { x: 9, y: 9 }, { x: 9, y: 10 }, { x: 9, y: 11 }, { x: 9, y: 13 }, { x: 9, y: 15 }, { x: 10, y: 7 }, { x: 10, y: 13 }, { x: 10, y: 15 }, { x: 11, y: 6 }, { x: 11, y: 9 }, { x: 11, y: 11 }, { x: 11, y: 12 }, { x: 11, y: 15 }, { x: 12, y: 6 }, { x: 12, y: 8 }, { x: 12, y: 10 }, { x: 12, y: 13 }, { x: 12, y: 15 }, { x: 13, y: 6 }, { x: 13, y: 7 }, { x: 13, y: 9 }, { x: 13, y: 11 }, { x: 13, y: 12 }, { x: 13, y: 15 }, { x: 14, y: 6 }, { x: 14, y: 10 }, { x: 15, y: 6 }, { x: 15, y: 7 }, { x: 15, y: 8 }, { x: 15, y: 11 }, { x: 15, y: 12 }, { x: 15, y: 13 }, { x: 15, y: 14 }, { x: 15, y: 15 }];
-    for (let i = 0; i < $squares.length; i++) {
-        if (Number($squares[i].dataset.column) >= state.startPoint.x &&
-            Number($squares[i].dataset.row) >= state.startPoint.y &&
-            Number($squares[i].dataset.column) <= state.endPoint.x &&
-            Number($squares[i].dataset.row) <= state.endPoint.y &&
-            isStartingBlock({ x: Number($squares[i].dataset.column), y: Number($squares[i].dataset.row) }, blockedSquares)) {
-            $squares[i].classList.remove("block");
-        }
-    }
-    lockBoard();
-};
-function isStartingBlock(coord, list) {
-    let response = false;
-    for (let i = 0; i < list.length; i++) {
-        if (list[i].x === coord.x && list[i].y === coord.y)
-            response = true;
-    }
-    return response;
-}
-startingBoard();
+lockBoard();
 function lockBoard() {
     createVirtualBoard();
     findDistances();
 }
-//# sourceMappingURL=pathfinder.js.map
