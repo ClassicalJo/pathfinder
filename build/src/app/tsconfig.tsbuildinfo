@@ -130,7 +130,7 @@
         "signature": "374632de2ec294a406513544d293229a5746ce5a26f9adbe9d0f86fe2de6b9c1"
       },
       "../../../src/app/pathfinder.ts": {
-        "version": "cf8c0238342506906aa67960dd6e6bf03b849833af94069b1ca94e37d5adbd72",
+        "version": "abea347e3de98aa23abc24ca3215b7cdd3b7a9026bd3f6c9c0175f7df2247bcf",
         "signature": "e469fa20aecb70620fa91f4beaa3eca131878dac24b39d46545a355048bc663c"
       },
       "../../../src/app/ui.ts": {
