@@ -266,6 +266,8 @@ let handleChange: any = {
 
 let stopPathfind = () => {
     state.timeouts.forEach(key => clearTimeout(key))
+    sorter.terminate()
+    sorter = generateSorter()
 }
 
 let setContainerListeners = () => {

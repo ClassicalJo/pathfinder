@@ -7,7 +7,7 @@
     <title>Pathfinder</title>
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel='stylesheet' type='text/css' media='screen' href='build/assets/main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='src/assets/main.css'>
 
 </head>
 
@@ -15,7 +15,7 @@
     <div class="wrapper">
         <div class="container">
             <div class="nav-bar">
-                <input type="button" value="start" onclick="pathFind()" />
+                <input type="button" value="start" onclick="breadthFirst()" />
                 <input type="button" value="stop" onclick="stopPathfind()" />
                 <input type="button" value="clear" onclick="restart()" />
                 <input type="button" value="draw line" onclick="setDrawLine(true)" />
@@ -53,8 +53,8 @@
             <div class="bottom-bar">
                 <input type="button" value="reset" onclick="resetAll()" />
 
-                <p>Precise <input type="range" min="0" max="10" value="0" class="slider" id="slider"
-                        onchange="handleChange.slider()"> Fast</p>
+                <p>Breadth First <input type="range" min="0" max="10" value="0" class="slider" disabled id="slider"
+                        onchange="handleChange.slider()">Breadth then Depth</p>
             </div>
             <div class="pathfinder-grid"></div>
             <svg class="svg">
@@ -62,10 +62,9 @@
             </svg>
         </div>
     </div>
-    <script src='build/mouseEvents.js'></script>
-    <script src='build/touchEvents.js'></script>
-    <script src='build/ui.js'></script>
-    <script src='build/pathfinder.js'></script>
+    <script src='build/src/app/events.js'></script>
+    <script src='build/src/app/ui.js'></script>
+    <script src='build/src/app/pathfinder.js'></script>
 </body>
 
 </html>
