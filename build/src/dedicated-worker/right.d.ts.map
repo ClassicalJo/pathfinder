@@ -1,1 +1,1 @@
-{"version":3,"file":"right.d.ts","sourceRoot":"","sources":["../../../main/src/dedicated-worker/right.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,CAAC"}
+{"version":3,"file":"right.d.ts","sourceRoot":"","sources":["../../../src/dedicated-worker/right.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,CAAC"}

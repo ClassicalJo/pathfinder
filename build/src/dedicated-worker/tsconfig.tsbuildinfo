@@ -125,43 +125,43 @@
         "version": "5f2a476cdb4990b249077b46a6242979876e9bba5152e066d68fad77510ee328",
         "signature": "5f2a476cdb4990b249077b46a6242979876e9bba5152e066d68fad77510ee328"
       },
-      "../../../main/src/dedicated-worker/down.ts": {
+      "../../../src/dedicated-worker/down.ts": {
         "version": "dbe50321faf032a8347ede57362ef760b1ac41a58c3408a2f4307de8f6cf72e9",
         "signature": "9431f9fbb7badb0b3e70b1494b39098873da84e11f43be0dc6c994536e7b663f"
       },
-      "../../../main/src/dedicated-worker/downleft.ts": {
+      "../../../src/dedicated-worker/downleft.ts": {
         "version": "dbe50321faf032a8347ede57362ef760b1ac41a58c3408a2f4307de8f6cf72e9",
         "signature": "2e0906939302bfea0336e94832971cb51d8fa876f5e46989fa8720d3b442e9bb"
       },
-      "../../../main/src/dedicated-worker/downright.ts": {
+      "../../../src/dedicated-worker/downright.ts": {
         "version": "dbe50321faf032a8347ede57362ef760b1ac41a58c3408a2f4307de8f6cf72e9",
         "signature": "b7d007cdd58c80d70ada469dd6e528c1d60f4796f3ce79dd554a926f841b4f40"
       },
-      "../../../main/src/dedicated-worker/left.ts": {
+      "../../../src/dedicated-worker/left.ts": {
         "version": "dbe50321faf032a8347ede57362ef760b1ac41a58c3408a2f4307de8f6cf72e9",
         "signature": "61ad17f20d27a4a2f11551bac942a5f3b92922aa1c9f1ab47c436a5087258cc1"
       },
-      "../../../main/src/dedicated-worker/right.ts": {
+      "../../../src/dedicated-worker/right.ts": {
         "version": "dbe50321faf032a8347ede57362ef760b1ac41a58c3408a2f4307de8f6cf72e9",
         "signature": "52cb6973ed4de145e868963b53db4d51e694c119673bfe417dff42d5286e3760"
       },
-      "../../../main/src/dedicated-worker/sorter.ts": {
+      "../../../src/dedicated-worker/sorter.ts": {
         "version": "7b33e76ef0051f121656221a32c9a73ceb2bf11c5755f7aea1103aa9490fdf99",
         "signature": "78a93b18f3a8065ad5e161c199f60479d7312f6236cb988c1ddf4e0ae4b6e889"
       },
-      "../../../main/src/dedicated-worker/step.ts": {
+      "../../../src/dedicated-worker/step.ts": {
         "version": "ff33faf3ab5f534659528579b280524effdd623d403ace33d7fef278920eff02",
         "signature": "7afcaeb3a8ef9700a80c613d798fb447a7dd43e0ec5fdca98fdca17ff046fe6e"
       },
-      "../../../main/src/dedicated-worker/up.ts": {
+      "../../../src/dedicated-worker/up.ts": {
         "version": "dbe50321faf032a8347ede57362ef760b1ac41a58c3408a2f4307de8f6cf72e9",
         "signature": "5cf2baa35ff9263514593a247ef729ad900404201caf674480d6ec8a9e6d2bff"
       },
-      "../../../main/src/dedicated-worker/upleft.ts": {
+      "../../../src/dedicated-worker/upleft.ts": {
         "version": "dbe50321faf032a8347ede57362ef760b1ac41a58c3408a2f4307de8f6cf72e9",
         "signature": "3b609900b0fed4e9279489b841808567d9546e47de6dcc7f620ca37a648ce7d9"
       },
-      "../../../main/src/dedicated-worker/upright.ts": {
+      "../../../src/dedicated-worker/upright.ts": {
         "version": "dbe50321faf032a8347ede57362ef760b1ac41a58c3408a2f4307de8f6cf72e9",
         "signature": "aa7d5da6b00217b4a3b00de55a06897ab4188b23f65e65047fb0997318c895c4"
       }
@@ -175,27 +175,17 @@
       "composite": true,
       "strict": true,
       "moduleResolution": 2,
-      "rootDir": "../../../main",
+      "rootDir": "../../..",
       "lib": [
         "lib.es2019.d.ts",
         "lib.webworker.d.ts"
       ],
       "watch": true,
-      "configFilePath": "../../../main/src/dedicated-worker/tsconfig.json"
+      "configFilePath": "../../../src/dedicated-worker/tsconfig.json"
     },
     "referencedMap": {},
     "exportedModulesMap": {},
     "semanticDiagnosticsPerFile": [
-      "../../../main/src/dedicated-worker/down.ts",
-      "../../../main/src/dedicated-worker/downleft.ts",
-      "../../../main/src/dedicated-worker/downright.ts",
-      "../../../main/src/dedicated-worker/left.ts",
-      "../../../main/src/dedicated-worker/right.ts",
-      "../../../main/src/dedicated-worker/sorter.ts",
-      "../../../main/src/dedicated-worker/step.ts",
-      "../../../main/src/dedicated-worker/up.ts",
-      "../../../main/src/dedicated-worker/upleft.ts",
-      "../../../main/src/dedicated-worker/upright.ts",
       "../../../node_modules/typescript/lib/lib.es5.d.ts",
       "../../../node_modules/typescript/lib/lib.es2015.d.ts",
       "../../../node_modules/typescript/lib/lib.es2016.d.ts",
@@ -226,7 +216,17 @@
       "../../../node_modules/typescript/lib/lib.es2019.array.d.ts",
       "../../../node_modules/typescript/lib/lib.es2019.object.d.ts",
       "../../../node_modules/typescript/lib/lib.es2019.string.d.ts",
-      "../../../node_modules/typescript/lib/lib.es2019.symbol.d.ts"
+      "../../../node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+      "../../../src/dedicated-worker/down.ts",
+      "../../../src/dedicated-worker/downleft.ts",
+      "../../../src/dedicated-worker/downright.ts",
+      "../../../src/dedicated-worker/left.ts",
+      "../../../src/dedicated-worker/right.ts",
+      "../../../src/dedicated-worker/step.ts",
+      "../../../src/dedicated-worker/up.ts",
+      "../../../src/dedicated-worker/upleft.ts",
+      "../../../src/dedicated-worker/upright.ts",
+      "../../../src/dedicated-worker/sorter.ts"
     ]
   },
   "version": "3.8.3"

@@ -8,6 +8,6 @@
     "composite": true,                    
     "strict": true,
     "moduleResolution": "node",           
-    "rootDir": "./main"                    
+    "rootDir": "."                    
   },
 }
