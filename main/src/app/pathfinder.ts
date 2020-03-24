@@ -235,13 +235,13 @@ function transposeSuccess(path: Coords[]) {
         document.querySelector(`#${$id}`)!.classList.remove("failure")
         document.querySelector(`#${$id}`)!.classList.add("success")
     })
-    let endpointId =
-        document.querySelector(`#${boardCd(state.endPoint).id}`)!.classList.remove("failure")
+    
+    document.querySelector(`#${boardCd(state.endPoint).id}`)!.classList.remove("failure")
     document.querySelector(`#${boardCd(state.endPoint).id}`)!.classList.add("success")
 }
 
 function generateSorter() {
-    let newSorter = new Worker("../build/src/dedicated-worker/sorter.js")
+    let newSorter = new Worker("../../../build/src/dedicated-worker/sorter.js")
     newSorter.onmessage = (event: MessageEvent) => {
         event.data.forEach((key: StepData) => {
             instructions(key)

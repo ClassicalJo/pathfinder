@@ -1,1 +1,1 @@
-{"version":3,"file":"up.d.ts","sourceRoot":"","sources":["../../../src/dedicated-worker/up.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,CAAC"}
+{"version":3,"file":"up.d.ts","sourceRoot":"","sources":["../../../main/src/dedicated-worker/up.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,CAAC"}
