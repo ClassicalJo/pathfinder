@@ -171,7 +171,7 @@ function transposeSuccess(path) {
     document.querySelector(`#${boardCd(state.endPoint).id}`).classList.add("success");
 }
 function generateSorter() {
-    let newSorter = new Worker("../../build/src/dedicated-worker/sorter.js");
+    let newSorter = new Worker("../build/src/dedicated-worker/sorter.js");
     newSorter.onmessage = (event) => {
         event.data.forEach((key) => {
             instructions(key);
