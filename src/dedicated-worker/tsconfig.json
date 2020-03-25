@@ -1,0 +1,9 @@
+{
+    "extends": "../../tsconfig.generic.json",
+    "compilerOptions": {
+        "lib": [
+            "es2019",
+            "webworker",
+        ],
+    },
+}
