@@ -41,4 +41,3 @@ let touchMove = (e) => {
         (UI.drawLine) ? toggleBlock(document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY)) : dragArea(e.touches[0].clientX, e.touches[0].clientY);
     }
 };
-//# sourceMappingURL=events.js.map

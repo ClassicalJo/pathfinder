@@ -55,4 +55,3 @@ declare let setContainerListeners: () => void;
 declare let setDrawLine: (value: boolean) => void;
 declare let addBlocks: (target: HTMLElement, x: number, y: number) => void;
 declare let dragArea: (x: number, y: number) => void;
-//# sourceMappingURL=ui.d.ts.map

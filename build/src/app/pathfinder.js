@@ -207,4 +207,3 @@ function lockBoard() {
     createVirtualBoard();
     findDistances();
 }
-//# sourceMappingURL=pathfinder.js.map

@@ -270,4 +270,3 @@ let dragArea = (x, y) => {
 };
 setContainerListeners();
 createBoard();
-//# sourceMappingURL=ui.js.map

@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
-    "declarationMap": true,               
-    "sourceMap": true,                    
+    "module": "esnext",                  
     "outDir": "./build",
     "composite": true,                    
     "strict": true,
     "moduleResolution": "node",           
-    "rootDir": "."                    
+    "rootDir": "./main"                    
   },
 }
