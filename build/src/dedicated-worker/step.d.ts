@@ -33,4 +33,3 @@ declare function wasTravelled(array: string[], obj: Coords, path: Coords[]): str
 declare function directions(obj: Distances): string[];
 declare function boardCd(cd: Coords): string;
 declare function workerStep(stepData: StepData): StepData[];
-//# sourceMappingURL=step.d.ts.map

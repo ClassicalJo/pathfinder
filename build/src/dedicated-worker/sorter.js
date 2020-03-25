@@ -43,4 +43,3 @@ let instructions = (event) => {
         }
     }
 };
-//# sourceMappingURL=sorter.js.map

@@ -60,4 +60,3 @@ declare function generateSorter(): Worker;
 declare let startingBoard: () => void;
 declare function isStartingBlock(coord: Coords, list: Coords[]): boolean;
 declare function lockBoard(): void;
-//# sourceMappingURL=pathfinder.d.ts.map

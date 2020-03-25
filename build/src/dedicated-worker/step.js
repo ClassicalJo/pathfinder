@@ -79,4 +79,3 @@ function workerStep(stepData) {
     }
     return newDestinations;
 }
-//# sourceMappingURL=step.js.map

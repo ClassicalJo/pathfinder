@@ -125,45 +125,46 @@
         "version": "5f2a476cdb4990b249077b46a6242979876e9bba5152e066d68fad77510ee328",
         "signature": "5f2a476cdb4990b249077b46a6242979876e9bba5152e066d68fad77510ee328"
       },
-      "../../../src/app/events.ts": {
+      "../../../main/src/app/events.ts": {
         "version": "6756950f1abfae4c0bf561e99086684c612b0f1e9439a3f124b23fae64d8a939",
-        "signature": "374632de2ec294a406513544d293229a5746ce5a26f9adbe9d0f86fe2de6b9c1"
+        "signature": "197b1353e218a4e32a2f9368eff85fe1596fdfe6c69ef351275dfe32127197ad"
       },
-      "../../../src/app/pathfinder.ts": {
+      "../../../main/src/app/pathfinder.ts": {
         "version": "abea347e3de98aa23abc24ca3215b7cdd3b7a9026bd3f6c9c0175f7df2247bcf",
-        "signature": "e469fa20aecb70620fa91f4beaa3eca131878dac24b39d46545a355048bc663c"
+        "signature": "4753dbba8b96bccc9ca6bea0a3f869b7893857f9aa61eccb74732478c4b0d1cf"
       },
-      "../../../src/app/ui.ts": {
+      "../../../main/src/app/ui.ts": {
         "version": "0279e86475600a776acfd3db538705e63a908f2f9d9590358d7a2c02b1226e5d",
-        "signature": "e8e1c8aa145ee812a2d4d041e03e002abc70005e23719ea6df0ec518835a2579"
+        "signature": "b06f2ce6178c6c7a4b1e23912d75cd96e1123d7cf0fb3fb201292164701a5569"
       }
     },
     "options": {
       "target": 99,
       "module": 99,
-      "declarationMap": true,
-      "sourceMap": true,
       "outDir": "../..",
       "composite": true,
       "strict": true,
       "moduleResolution": 2,
-      "rootDir": "../../..",
+      "rootDir": "../../../main",
       "lib": [
         "lib.es2019.d.ts",
         "lib.dom.d.ts"
       ],
       "watch": true,
-      "configFilePath": "../../../src/app/tsconfig.json"
+      "configFilePath": "../../../main/src/app/tsconfig.json"
     },
     "referencedMap": {},
     "exportedModulesMap": {},
     "semanticDiagnosticsPerFile": [
-      "../../../node_modules/typescript/lib/lib.es5.d.ts",
+      "../../../main/src/app/events.ts",
+      "../../../main/src/app/pathfinder.ts",
+      "../../../main/src/app/ui.ts",
       "../../../node_modules/typescript/lib/lib.es2015.d.ts",
       "../../../node_modules/typescript/lib/lib.es2016.d.ts",
       "../../../node_modules/typescript/lib/lib.es2017.d.ts",
       "../../../node_modules/typescript/lib/lib.es2018.d.ts",
       "../../../node_modules/typescript/lib/lib.es2019.d.ts",
+      "../../../node_modules/typescript/lib/lib.es5.d.ts",
       "../../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../../node_modules/typescript/lib/lib.es2015.core.d.ts",
       "../../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
@@ -188,10 +189,7 @@
       "../../../node_modules/typescript/lib/lib.es2019.array.d.ts",
       "../../../node_modules/typescript/lib/lib.es2019.object.d.ts",
       "../../../node_modules/typescript/lib/lib.es2019.string.d.ts",
-      "../../../node_modules/typescript/lib/lib.es2019.symbol.d.ts",
-      "../../../src/app/events.ts",
-      "../../../src/app/ui.ts",
-      "../../../src/app/pathfinder.ts"
+      "../../../node_modules/typescript/lib/lib.es2019.symbol.d.ts"
     ]
   },
   "version": "3.8.3"
