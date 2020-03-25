@@ -241,7 +241,7 @@ function transposeSuccess(path: Coords[]) {
 }
 
 function generateSorter() {
-    let newSorter = new Worker("../../build/src/dedicated-worker/sorter.js")
+    let newSorter = new Worker("../../../build/src/dedicated-worker/sorter.js")
     newSorter.onmessage = (event: MessageEvent) => {
         event.data.forEach((key: StepData) => {
             instructions(key)

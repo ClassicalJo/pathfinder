@@ -130,7 +130,7 @@
         "signature": "197b1353e218a4e32a2f9368eff85fe1596fdfe6c69ef351275dfe32127197ad"
       },
       "../../../main/src/app/pathfinder.ts": {
-        "version": "abea347e3de98aa23abc24ca3215b7cdd3b7a9026bd3f6c9c0175f7df2247bcf",
+        "version": "1c3be2531ec8ab4ed253d094ce56d8b6f63ae710af4e9b1ca6adbe84f2114a48",
         "signature": "4753dbba8b96bccc9ca6bea0a3f869b7893857f9aa61eccb74732478c4b0d1cf"
       },
       "../../../main/src/app/ui.ts": {
@@ -156,15 +156,12 @@
     "referencedMap": {},
     "exportedModulesMap": {},
     "semanticDiagnosticsPerFile": [
-      "../../../main/src/app/events.ts",
-      "../../../main/src/app/pathfinder.ts",
-      "../../../main/src/app/ui.ts",
+      "../../../node_modules/typescript/lib/lib.es5.d.ts",
       "../../../node_modules/typescript/lib/lib.es2015.d.ts",
       "../../../node_modules/typescript/lib/lib.es2016.d.ts",
       "../../../node_modules/typescript/lib/lib.es2017.d.ts",
       "../../../node_modules/typescript/lib/lib.es2018.d.ts",
       "../../../node_modules/typescript/lib/lib.es2019.d.ts",
-      "../../../node_modules/typescript/lib/lib.es5.d.ts",
       "../../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../../node_modules/typescript/lib/lib.es2015.core.d.ts",
       "../../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
@@ -189,7 +186,10 @@
       "../../../node_modules/typescript/lib/lib.es2019.array.d.ts",
       "../../../node_modules/typescript/lib/lib.es2019.object.d.ts",
       "../../../node_modules/typescript/lib/lib.es2019.string.d.ts",
-      "../../../node_modules/typescript/lib/lib.es2019.symbol.d.ts"
+      "../../../node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+      "../../../main/src/app/events.ts",
+      "../../../main/src/app/ui.ts",
+      "../../../main/src/app/pathfinder.ts"
     ]
   },
   "version": "3.8.3"
