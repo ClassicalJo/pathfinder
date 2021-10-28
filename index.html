@@ -1,70 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Pathfinder</title>
-    <meta name="viewport" content="width=device-width, user-scalable=yes">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel='stylesheet' type='text/css' media='screen' href='main/src/assets/main.css'>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href="main.css ">
+    <title>A* Pathfinder</title>
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="container">
-            <div class="nav-bar">
-                <input type="button" value="start" onclick="breadthFirst()" />
-                <input type="button" value="stop" onclick="stopPathfind()" />
-                <input type="button" value="clear" onclick="restart()" />
-                <input type="button" value="draw line" onclick="setDrawLine(true)" />
-                <input type="button" value="draw area" onclick="setDrawLine(false)" />
-            </div>
-            <div class="config-bar">
-                <div class="sizer">
-                    <div class="size-wrapper">
-                        <p>size x: <input type='text' id="sizeX" onchange="handleChange.text('#sizeX')" /></p>
-                        <p>size y: <input type='text' id="sizeY" onchange="handleChange.text('#sizeY')" /></p>
-                    </div>
-                    <input class="size-bar" type="button" value="set size" onclick="setSize()" />
-                </div>
-                <div class="starter">
-                    <div class="start-wrapper">
-                        <p class="start-bar">start x: <input type="text" id="startX"
-                                onchange="handleChange.text('#startX')" />
-                        </p>
-                        <p class="start-bar">start y: <input type="text" id="startY"
-                                onchange="handleChange.text('#startY')" />
-                        </p>
-                    </div>
-                    <input class="start-bar" type="button" value="set start" onclick="setStartPoint.start()" />
-                </div>
-                <div class="ender">
-                    <div class="end-wrapper">
-                        <p class="end-bar">end x: <input type="text" id="endX" onchange="handleChange.text('#endX')" />
-                        </p>
-                        <p class="end-bar">end y: <input type="text" id="endY" onchange="handleChange.text('#endY')" />
-                        </p>
-                    </div>
-                    <input class="end-bar" type="button" value="set end" onclick="setEndPoint.start()" />
-                </div>
-            </div>
-            <div class="bottom-bar">
-                <input type="button" value="reset" onclick="resetAll()" />
+    <div id="board">
+        <canvas width='2000' height='2000'></canvas>
+    </div>
 
-                <p>Breadth First <input type="range" min="0" max="10" value="0" class="slider" disabled id="slider"
-                        onchange="handleChange.slider()">Breadth then Depth</p>
+    <div id='controls'>
+        <div class="wrapper">
+            <div class='tutorial'>
+                <p>Set your grid dimensions.</p>
+                <p>Double click a tile to select it as the starting point.</p>
+                <p>Click and hold a tile to select it as the end point.</p>
+                <p>Click and drag over the board to enable/disable tiles.</p>
+                <p>Mobile not yet supported.</p>
             </div>
-            <div class="pathfinder-grid"></div>
-            <svg class="svg">
-                <rect width="0" height="0" x='0' y='0' fill="rgba(0,0,0,0.2)" stroke="rgba(0,0,0,0.6)" />
-            </svg>
+        </div>
+        <form name="width">
+            <p>Width: </p>
+            <div class='buttons'>
+                <input class='decreaser changer' type='button' value="<" />
+                <input value="5" id="width" min="5" type="tel">
+                <input class='increaser changer' type='button' value=">" />
+            </div>
+        </form>
+        <form name="height">
+            <p>Height: </p>
+            <div class='buttons'>
+                <input class='decreaser changer' type='button' value="<" />
+                <input value="5" id="height" min="5" type="tel">
+                <input class='increaser changer' type='button' value=">" />
+            </div>
+        </form>
+        <div class='wrapper'>
+            <div class='input-wrapper'>
+                <input id="reset" type="button" value="Reset" />
+            </div>
+            <div class='input-wrapper'>
+                <input id="start" type="button" value="Start" />
+            </div>
         </div>
     </div>
-    <script src='build/src/app/events.js'></script>
-    <script src='build/src/app/ui.js'></script>
-    <script src='build/src/app/pathfinder.js'></script>
 </body>
+<script src='index.js'></script>
+<script src='ui.js'></script>
 
 </html>
