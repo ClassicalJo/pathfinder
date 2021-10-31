@@ -130,19 +130,3 @@ function bubbleSort(arr) {
     return arr;
 }
 
-
-function guysDistance(tileA, tileB) {
-    let dstX = Math.abs(tileA.x - tileB.x)
-    let dstY = Math.abs(tileA.y - tileB.y)
-    if (dstX > dstY) return 14 * dstY + 10 * (dstX - dstY)
-    return 14 * dstX + 10 * (dstY - dstX)
-}
-
-let tileA = makeTile(0, 0)
-let tileB = makeTile(1, 1)
-let tileC = makeTile(0, 1)
-let target = makeTile(2, 2)
-tileB.update(tileA, target)
-tileB.update(tileC, target)
-
-console.log(tileB)
